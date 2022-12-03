@@ -1,9 +1,5 @@
 # simpleBashUtils
 
-<div align="center">PREVIEW_WILL_BE_ADDED_LATER.png</div>
-
----
-
 Implementation of the SimpleBashUtils project as part of the School 21 educational project.
 
 Utilities have been developed for the C programming languages Bash cat and grep.
@@ -24,10 +20,10 @@ TEMPLATE: `cat [OPTION] [FILE]`
 | № | Option                                                      | Description                                  |
 | --- | ----------------------------------------------------------- | -------------------------------------------- |
 | 1   | -b (GNU: --number-nonblank)                                 | numbers only non-empty lines                 |
-| 2   | -e подразумевает -v (только GNU: -E то же самое, но без -v) | but also display end-of-line characters as $ |
+| 2   | -e implies -v (GNU only: -E the same, but without implying -v) | but also display end-of-line characters as $ |
 | 3   | -n (GNU: --number)                                          | number all output lines                      |
 | 4   | -s (GNU: --squeeze-blank)                                   | squeeze multiple adjacent blank lines        |
-| 5   | -t подразумевает -v (GNU: -T то же самое, но без -v)        | but also display tabs as ^I                  |
+| 5   | -t implies -v (GNU: -T the same, but without implying -v)        | but also display tabs as ^I                  |
 
 ### s21_grep
 
