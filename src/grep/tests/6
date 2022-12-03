@@ -1,0 +1,70 @@
+#include <getopt.h>
+#include <regex.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main() {
+  char *template = "ot|to";
+  char *word = "tottot";
+  int lengthWord = strlen(word);
+  char *str = calloc(lengthWord + 1, sizeof(char));
+  strcpy(str, word);
+  regex_t compile;
+
+  if (!regcomp(&compile, template, REG_EXTENDED)) {
+    // общий цикл с изменяющейся строкой
+    while (!regexec(&compile, str, 0, NULL, 0)) {
+      char *tmp = calloc(lengthWord + 1, sizeof(char));
+      int end = strlen(str);
+      strcpy(tmp, str);
+      int lengthTMP = strlen(tmp);
+
+      // цикл с уменьшением временной строки с конца
+      while (!regexec(&compile, tmp, 0, NULL, 0)) {
+        end--;
+        tmp[--lengthTMP] = 0;
+      }
+      tmp[lengthTMP] = str[lengthTMP];
+
+      //  цикл с уменьшением временной строки с начала
+      int start = 0;
+      while (!regexec(&compile, tmp, 0, NULL, 0)) {
+        start++;
+        int i = 0;
+        while (tmp[i] != '\0') {
+          tmp[i] = tmp[i + 1];
+          i++;
+        }
+      }
+      start--;
+      int i = strlen(tmp);
+      while (i != 0) {
+        tmp[i] = tmp[i - 1];
+        i--;
+      }
+      tmp[0] = str[start];
+
+      printf("%s\n", tmp);
+      lengthTMP = strlen(tmp);
+
+      // цикл с изменением главной строки, где полностью убрано вхождение
+      // подстроки
+      i = start + lengthTMP;
+      while (str[i] != '\0') {
+        str[i - start - lengthTMP] = str[i];
+        i++;
+      }
+      str[i - start - lengthTMP] = 0;
+
+      free(tmp);
+    }
+  }
+
+  if (str != NULL) {
+    free(str);
+  }
+  regfree(&compile);
+  return 0;
+}
